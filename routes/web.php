@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\HistoricController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LottoController;
 use App\Http\Controllers\ResultController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JourneyController;
+use App\Http\Controllers\HistoricController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,5 +25,6 @@ Route::get('/', function () {
 Route::get('/random', [LottoController::class, 'random']); */
 Route::get('/result', [ResultController::class, 'index']);
 Route::get('/hits', [HistoricController::class, 'index']);
+Route::get('/{id}', [JourneyController::class, 'index'])->name('journey');
 Route::post('/handle-result', [ResultController::class, 'handleResult'])->name('handle-result');
 Route::get('/get-teams', [ResultController::class, 'getTeams'])->name('teams-ajax');

@@ -19,7 +19,7 @@ class HistoricSeeder extends Seeder
         foreach ($jornadas as $jornada) {
             foreach ($jornada->partidos as $partido) {
                 if (isset($partido->visitante) && isset($partido->resultado) && isset($partido->local)) {
-                    $historic = Historic::firstOrNew(['_id' => $jornada->_id,'local' => $partido->local, 'visitor' => $partido->visitante]);
+                    $historic = Historic::firstOrNew(['_id' => $jornada->_id, 'league_date' => $jornada->fecha, 'local' => $partido->local, 'visitor' => $partido->visitante]);
                     $historic->result = $partido->resultado;
                     $historic->save();
                 }
@@ -27,7 +27,8 @@ class HistoricSeeder extends Seeder
         }
     }
 
-    public function getResults() {
+    public function getResults()
+    {
         $client = new Client();
         $res = $client->request('GET', 'https://www.pronostigol.es/api/quiniela/tickets?per_page=' . self::PER_PAGE);
 

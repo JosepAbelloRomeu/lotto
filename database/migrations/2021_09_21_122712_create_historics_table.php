@@ -16,6 +16,7 @@ class CreateHistoricsTable extends Migration
         Schema::create('historics', function (Blueprint $table) {
             $table->id();
             $table->string('_id');
+            $table->date('league_date');
             $table->string('local');
             $table->string('visitor');
             $table->string('result');
