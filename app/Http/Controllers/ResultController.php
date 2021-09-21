@@ -42,8 +42,10 @@ class ResultController extends Controller
                 if ($result !== null) {
                     if ($result->wins > $result->loses) {
                         $prevision[] = '1';
-                    } else if ($result->wins <= $result->loses) {
+                    } else if ($result->wins < $result->loses) {
                         $prevision[] = '2';
+                    } else {
+                        $prevision[] = 'X';
                     }
                 } else {
                     $prevision[] = 'X';

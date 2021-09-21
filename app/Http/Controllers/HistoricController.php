@@ -15,7 +15,7 @@ class HistoricController extends Controller
      */
     public function index()
     {
-        $historics = Historic::take(500)->get()->groupBy('_id');
+        $historics = Historic::take(3014)->get()->groupBy('_id');
 
         $hitsHtml = '<table>';
 
@@ -23,10 +23,11 @@ class HistoricController extends Controller
             $hitsHtml .= '<tr>';
             foreach ($historic as $partido) {
                 $prevision = $this->getPrevision($partido->local, $partido->visitor);
-                $hitsHtml .= '<td' . ($prevision == $partido->result ? ' style="color: red"' : '') .'>';
+                $hitsHtml .= '<td' . ($prevision == $partido->result ? ' style="color: red;"' : '') .'>';
                 $hitsHtml .= $prevision;
                 $hitsHtml .= '</td>';
             }
+            $hitsHtml .= '<td>' . $partido->_id . '</td>';
             $hitsHtml .= '</tr>';
         }
 
