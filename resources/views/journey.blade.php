@@ -132,11 +132,11 @@
             display: block;
             z-index: 1;
         }
-        .result-box.success {     
+        .result-box.success {
             color: #70b14a !important;
             font-weight: bold;
         }
-        .result-box.fail {     
+        .result-box.fail {
             color: #000 !important;
             font-weight: bold;
         }
@@ -173,8 +173,8 @@
     <section class="ticket">
         <hr class="pink-line-double">
         @foreach ($matches as $match)
-            @php 
-                $prevision = getPrevision($match->local, $match->visitor);
+            @php
+                $prevision = Helper::getPrevision($match->local, $match->visitor);
                 $isHit = $prevision == $match->result;
                 if ($isHit) {
                     $acumulable++;
