@@ -43,6 +43,16 @@
             display: table-cell;
             border: 0;
         }
+        .match-row .row-cell5 {
+            width: 50px;
+            display: table-cell;
+            text-align: center;
+            font-size: 12px;
+            opacity: .9;
+            filter: alpha(opacity=9);
+            white-space: nowrap;
+            text-align: center;
+        }
         .content-ticket {
             font-size: 0;
             display: table-row;
@@ -194,6 +204,7 @@
                             <div class="result-box {{ $prevision == 2 ? ($prevision == $match->result ? 'success' : 'fail') : '' }}"><span id="caixa_2">2</span></div>
                         </div>
                     </div>
+                    <div class="row-cell5 red">{{ $match->result }}</div>
                 </article>
             </div>
         @endforeach

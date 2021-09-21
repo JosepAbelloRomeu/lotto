@@ -10,11 +10,25 @@ function getPrevision($local, $visitor)
     $prevision = null;
 
     if ($result !== null) {
-        if ($result->wins > 5 || $result->loses > 5) {
+        if ($result->wins > 3 || $result->loses > 3) {
             if ($result->wins > $result->loses) {
-                $prevision = '1';
+                if ($result->wins > $result->ties) {
+                    $prevision = '1';
+                } else {
+                    if ($result->wins > $result->loses + 5) {
+                        $prevision = '1';
+                    } else {
+                        $prevision = 'X';
+                    }
+                }
             } elseif ($result->wins < $result->loses) {
-                $prevision = '2';
+                if ($result->loses > $result->ties) {
+                    $prevision = '2';
+                } else {
+                    $prevision = 'X';
+                }
+            } elseif ($result->wins == $result->loses) {
+                $prevision = 'X';
             } else {
                 $prevision = 'X';
             }
