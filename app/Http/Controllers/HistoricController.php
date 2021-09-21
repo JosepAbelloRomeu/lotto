@@ -16,7 +16,7 @@ class HistoricController extends Controller
      */
     public function index()
     {
-        $historics = Historic::take(3014)->get()->groupBy('_id');
+        $historics = Historic::take(450)->get()->groupBy('_id');
 
         $hitsHtml = '<table>';
 
@@ -26,15 +26,28 @@ class HistoricController extends Controller
             foreach ($historic as $partido) {
                 $prevision = $this->getPrevision($partido->local, $partido->visitor);
 
+                $hitsHtml .= '<td>';
+                $hitsHtml .= $prevision;
+                $hitsHtml .= '</td>';
+            }
+
+            $hitsHtml .= '<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+
+            foreach ($historic as $partido) {
+                $prevision = $this->getPrevision($partido->local, $partido->visitor);
+
                 $isHit = $prevision == $partido->result;
                 if ($isHit) {
                     $acumulable++;
                 }
 
                 $hitsHtml .= '<td' . ($prevision == $partido->result ? ' style="color: red;"' : '') .'>';
-                $hitsHtml .= $prevision;
+                $hitsHtml .= $partido->result;
                 $hitsHtml .= '</td>';
             }
+
+            $hitsHtml .= '<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+            
             $hitsHtml .= '<td>' . $partido->_id . '</td>';
             $hitsHtml .= '<td' . ($acumulable >= 10 ? ' style="color: red;"' : '') .  '>' . $acumulable . '</td>';
             $hitsHtml .= '</tr>';
