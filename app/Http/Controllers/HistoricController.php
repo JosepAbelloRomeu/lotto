@@ -22,13 +22,21 @@ class HistoricController extends Controller
 
         foreach ($historics as $historic) {
             $hitsHtml .= '<tr>';
+            $acumulable = 0;
             foreach ($historic as $partido) {
                 $prevision = $this->getPrevision($partido->local, $partido->visitor);
+
+                $isHit = $prevision == $partido->result;
+                if ($isHit) {
+                    $acumulable++;
+                }
+
                 $hitsHtml .= '<td' . ($prevision == $partido->result ? ' style="color: red;"' : '') .'>';
                 $hitsHtml .= $prevision;
                 $hitsHtml .= '</td>';
             }
             $hitsHtml .= '<td>' . $partido->_id . '</td>';
+            $hitsHtml .= '<td' . ($acumulable >= 10 ? ' style="color: red;"' : '') .  '>' . $acumulable . '</td>';
             $hitsHtml .= '</tr>';
         }
 
