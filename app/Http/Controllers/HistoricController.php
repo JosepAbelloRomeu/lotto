@@ -6,6 +6,7 @@ use App\Helpers\Helper;
 use App\Historic;
 use App\Result;
 use App\Team;
+use App\WorkingDay;
 use Illuminate\Http\Request;
 
 class HistoricController extends Controller
@@ -17,18 +18,18 @@ class HistoricController extends Controller
      */
     public function index()
     {
-        $historics = Historic::take(450)->get()->groupBy('_id');
+        $workingDays = WorkingDay::take(100)->cursor();
 
         $hitsHtml = '<table>';
 
-        foreach ($historics as $historic) {
+        foreach ($workingDays as $workingDay) {
             $hitsHtml .= '<tr>';
             $acumulable = 0;
 
-            $hitsHtml .= '<td>' . $historic[0]->league_date->format('d/m/Y') . '</td>';
+            $hitsHtml .= '<td>' . $workingDay->league_date->format('d/m/Y') . '</td>';
             $hitsHtml .= '<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>';
 
-            foreach ($historic as $partido) {
+            foreach ($workingDay->historics as $partido) {
                 $prevision = Helper::getPrevision($partido->local, $partido->visitor);
 
                 $isHit = $prevision == $partido->result;
@@ -43,7 +44,7 @@ class HistoricController extends Controller
 
             $hitsHtml .= '<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>';
 
-            $hitsHtml .= '<td>' . $partido->_id . '</td>';
+            $hitsHtml .= '<td>' . $workingDay->_id . '</td>';
             $hitsHtml .= '<td' . ($acumulable >= 10 ? ' style="color: red;"' : '') .  '>' . $acumulable . '</td>';
 
             $hitsHtml .= '</tr>';

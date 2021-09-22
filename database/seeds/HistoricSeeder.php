@@ -1,6 +1,7 @@
 <?php
 
 use App\Historic;
+use App\WorkingDay;
 use GuzzleHttp\Client;
 use Illuminate\Database\Seeder;
 
@@ -17,11 +18,10 @@ class HistoricSeeder extends Seeder
         $jornadas = $this->getResults();
 
         foreach ($jornadas as $jornada) {
+            $workingDay = WorkingDay::create(['_id' => $jornada->_id, 'league_date' => $jornada->fecha, 'season' => $jornada->temporada, 'working_day' => $jornada->jornada]);
             foreach ($jornada->partidos as $partido) {
                 if (isset($partido->visitante) && isset($partido->resultado) && isset($partido->local)) {
-                    $historic = Historic::firstOrNew(['_id' => $jornada->_id, 'league_date' => $jornada->fecha, 'local' => $partido->local, 'visitor' => $partido->visitante]);
-                    $historic->result = $partido->resultado;
-                    $historic->save();
+                    Historic::create(['working_day_id' => $workingDay->id, 'local' => $partido->local, 'visitor' => $partido->visitante, 'result' => $partido->resultado]);
                 }
             }
         }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHistoricsTable extends Migration
+class CreateWorkingDaysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateHistoricsTable extends Migration
      */
     public function up()
     {
-        Schema::create('historics', function (Blueprint $table) {
+        Schema::create('working_days', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('working_day_id')->unsigned();
-            $table->foreign('working_day_id')->references('id')->on('working_days');
-            $table->string('local');
-            $table->string('visitor');
-            $table->string('result');
+            $table->string('_id');
+            $table->date('league_date');
+            $table->string('season');
+            $table->integer('working_day');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateHistoricsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('historics');
+        Schema::dropIfExists('working_days');
     }
 }

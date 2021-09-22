@@ -13,7 +13,7 @@ class Helper{
         $prevision = null;
 
         if ($result !== null) {
-            if ($result->wins > 3 || $result->loses > 3) {
+            if ($result->wins > 2 || $result->loses > 2) {
                 if ($result->wins > $result->loses) {
                     if ($result->wins > $result->ties) {
                         $prevision = '1';

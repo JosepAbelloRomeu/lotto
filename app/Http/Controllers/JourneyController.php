@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Historic;
 use App\Result;
 use App\Team;
+use App\WorkingDay;
 use Illuminate\Http\Request;
 
 class JourneyController extends Controller
@@ -16,7 +17,7 @@ class JourneyController extends Controller
      */
     public function index(Request $request)
     {
-        $matches = Historic::where('_id', $request->id)->get();
+        $matches = WorkingDay::where('_id', $request->id)->first()->historics;
 
         return view('journey', ['matches' => $matches, 'acumulable' => 0]);
     }
