@@ -18,7 +18,7 @@ class HistoricController extends Controller
      */
     public function index()
     {
-        $workingDays = WorkingDay::take(100)->cursor();
+        $workingDays = WorkingDay::take(50)->cursor();
 
         $hitsHtml = '<table>';
 

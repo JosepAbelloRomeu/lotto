@@ -23,9 +23,9 @@ class Helper
                 $percentageTies = ($result->ties / $sum) * 100;
 
                 $arrayPercentages = [
-                    'percentageVictories' => $percentageVictories,
-                    'percentageLoses' => $percentageLoses,
-                    'percentageTies' => $percentageTies
+                    'percentageVictories' => self::getPercentage($local, $visitor, 'win'),
+                    'percentageLoses' => self::getPercentage($local, $visitor, 'tie'),
+                    'percentageTies' => self::getPercentage($local, $visitor, 'lose')
                 ];
 
                 arsort($arrayPercentages);
@@ -103,13 +103,14 @@ class Helper
         return $prevision;
     }
 
-    public static function getPercentage($local, $visitor, $type = 'win')
+    public static function getPercentage($local, $visitor, $type = 'win', $historics = null)
     {
-        $wins = Historic::where('local', $local)->where('visitor', $visitor)->where('result', '=', '1')->get();
-        $ties = Historic::where('local', $local)->where('visitor', $visitor)->where('result', '=', 'X')->get();
-        $loses = Historic::where('local', $local)->where('visitor', $visitor)->where('result', '=', '2')->get();
+        $historics = Historic::where('local', $local)->where('visitor', $visitor)->get();
+        $wins = $historics->where('result', '=', '1');
+        $ties = $historics->where('result', '=', 'X');
+        $loses = $historics->where('result', '=', '2');
 
-        $total = Historic::where('local', $local)->where('visitor', $visitor)->get()->count();
+        $total = $historics->count();
 
         switch ($type) {
             case 'win':
