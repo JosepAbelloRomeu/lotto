@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap" rel="stylesheet">
     <title>Document</title>
     <style>
         body {
@@ -14,7 +14,6 @@
         }
         .ticket {
             margin-top: 0;
-            margin-bottom: 50px;
             background: #FFF;
             padding: 5px 13px;
             border: 1px solid #d3c8c8;
@@ -42,6 +41,27 @@
         .match-row .row-cell {
             display: table-cell;
             border: 0;
+        }
+        .match-row .row-cell3 {
+            width: 100px;
+            font-size: 12px;
+            opacity: .9;
+            filter: alpha(opacity=9);
+            white-space: nowrap;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 300;
+            text-align: center;
+        }
+        .match-row .row-cell1, .content-ticket .row-cell2, .content-ticket .row-cell3, .content-ticket .row-cell4, .content-ticket .row-cell5 {
+            display: table-cell;
+            border: 0;
+        }
+        .bg-lightpink {
+            background-color: #ffe0dd;
+        }
+        .value {
+            display: inline-block;
+            width: 2.2em;
         }
         .match-row .row-cell5 {
             width: 50px;
@@ -117,6 +137,7 @@
             position: relative;
             width: 20px;
             height: 19px;
+            line-height: 19px;
             margin-top: 1px;
         }
         .pink {
@@ -158,7 +179,7 @@
         }
         .title-list {
             font-size: 13px;
-            margin-right: 25px;
+            margin-right: 5px;
             text-align: right;
             text-transform: uppercase;
             padding-bottom: 10px;
@@ -166,52 +187,100 @@
         .footer-txt {
             width: 100%;
             font-size: 0;
+            margin-top: 5px;
+        }
+        .wrapper {
+            max-width: 1021px;
+            margin: 0 auto;
+            padding: 10px;
+            box-sizing: border-box;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0;
+            background-color: #f6f3f3;
+            line-height: 1.2;
+            position: relative;
+        }
+        .header-ticket {
+            width: 100%;
+            text-transform: uppercase;
+            font-size: 0;
+        }
+        .header-ticket .title-ticket {
+            width: 25%;
+            font-size: 22px;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 10px;
+            font-family: 'Oswald', sans-serif;
+            color: #00245c;
+        }
+        .js-num-temporada {
+            font-size: 14px;
+            font-weight: normal;
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
-    <section class="ticket">
-        <hr class="pink-line-double">
-        @foreach ($matches as $match)
-            @php
-                $prevision = Helper::getPrevision($match->local, $match->visitor);
-                $isHit = $prevision == $match->result;
-                if ($isHit) {
-                    $acumulable++;
-                }
-            @endphp
-
-            @if($loop->iteration == 5 || $loop->iteration == 9 || $loop->iteration == 12 || $loop->iteration == 15)
-                <hr class="pink-line">
-            @endif
-            <div class="match-row">
-                <article class="content-ticket">
-                    <div class="row-cell">
-                        <div class="ellip ellipsis-bottom-online-topp">. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  . . . . . . . . . . . . . . .  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . </div>
-                        <div class="bg-name">{{ $match->local }} - {{ $match->visitor }}</div>
-                    </div>
-                    <div class="cell-num">
-                        <div class="num-line">{{ $loop->iteration }}</div>
-                    </div>
-                    <div class="cell-results results-boxes item0">
-                        <div class="results-boxes-home bg-white" data-match="1" data-result="1">
-                            <div class="result-box {{ $prevision == 1 ? ($prevision == $match->result ? 'success' : 'fail') : '' }}"><span id="caixa_1">1</span></div>
-                        </div>
-                        <div class="results-boxes-home bg-white" data-match="1" data-result="x">
-                            <div class="result-box {{ $prevision == 'X' ? ($prevision == $match->result ? 'success' : 'fail') : '' }}"><span id="caixa_x" class="uppercase">X</span></div>
-                        </div>
-                        <div class="results-boxes-home bg-white" data-match="1" data-result="2">
-                            <div class="result-box {{ $prevision == 2 ? ($prevision == $match->result ? 'success' : 'fail') : '' }}"><span id="caixa_2">2</span></div>
-                        </div>
-                    </div>
-                    <div class="row-cell5 red">{{ $match->result }}</div>
+    <div class="main">
+        <div class="wrapper">
+            <section class="ticket">
+    
+                <article class="header-ticket">
+                    <h2 class="title-ticket blue">
+                        Jornada <span class="js-num-jornada">{{ $matches->working_day }}</span>
+                        <span class="js-num-temporada">TEMPORADA 2022</span>
+                    </h2>
                 </article>
-            </div>
-        @endforeach
-        <hr class="pink-line-double">
-        <article class="footer-txt">
-            <div class="title-list pink">{{ $acumulable }} ACIERTOS</div>
-        </article>
-    </section>
+                
+                <hr class="pink-line-double">
+                @foreach ($matches->historics as $match)
+                    @php
+                        $prevision = Helper::getPrevision($match->local, $match->visitor);
+                        $isHit = $prevision == $match->result;
+                        if ($isHit) {
+                            $acumulable++;
+                        }
+                    @endphp
+        
+                    @if($loop->iteration == 5 || $loop->iteration == 9 || $loop->iteration == 12 || $loop->iteration == 15)
+                        <hr class="pink-line">
+                    @endif
+                    <div class="match-row">
+                        <article class="content-ticket">
+                            <div class="row-cell">
+                                <div class="ellip ellipsis-bottom-online-topp">. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  . . . . . . . . . . . . . . .  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . </div>
+                                <div class="bg-name">{{ $match->local }} - {{ $match->visitor }}</div>
+                            </div>
+                            <div class="cell-num">
+                                <div class="num-line">{{ $loop->iteration }}</div>
+                            </div>
+                            <div class="cell-results results-boxes item0">
+                                <div class="results-boxes-home bg-white" data-match="1" data-result="1">
+                                    <div class="result-box {{ $prevision == 1 ? ($prevision == $match->result ? 'success' : 'fail') : '' }}"><span id="caixa_1">1</span></div>
+                                </div>
+                                <div class="results-boxes-home bg-white" data-match="1" data-result="x">
+                                    <div class="result-box {{ $prevision == 'X' ? ($prevision == $match->result ? 'success' : 'fail') : '' }}"><span id="caixa_x" class="uppercase">X</span></div>
+                                </div>
+                                <div class="results-boxes-home bg-white" data-match="1" data-result="2">
+                                    <div class="result-box {{ $prevision == 2 ? ($prevision == $match->result ? 'success' : 'fail') : '' }}"><span id="caixa_2">2</span></div>
+                                </div>
+                            </div>
+                            <div class="row-cell3 bg-lightpink item1">
+                                <span class="value">75</span>
+                                <span class="value">17</span>
+                                <span class="value">8</span>
+                            </div>
+                            <div class="row-cell5 red">{{ $match->result }}</div>
+                        </article>
+                    </div>
+                @endforeach
+                <hr class="pink-line-double">
+                <article class="footer-txt">
+                    <div class="title-list pink">{{ $acumulable }} ACIERTOS</div>
+                </article>
+            </section>
+        </div>
+    </div>
 </body>
 </html>

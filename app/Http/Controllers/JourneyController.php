@@ -17,7 +17,7 @@ class JourneyController extends Controller
      */
     public function index(Request $request)
     {
-        $matches = WorkingDay::where('_id', $request->id)->first()->historics;
+        $matches = WorkingDay::where('_id', $request->id)->first();
 
         return view('journey', ['matches' => $matches, 'acumulable' => 0]);
     }
