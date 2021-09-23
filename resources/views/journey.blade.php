@@ -236,7 +236,7 @@
                 <hr class="pink-line-double">
                 @foreach ($matches->historics as $match)
                     @php
-                        $prevision = Helper::getPrevision($match->local, $match->visitor);
+                        $prevision = Helper::getBet($match->local, $match->visitor);
                         $isHit = $prevision == $match->result;
                         if ($isHit) {
                             $acumulable++;

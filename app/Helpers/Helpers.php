@@ -103,6 +103,29 @@ class Helper
         return $prevision;
     }
 
+    public static function getBet($local, $visitor)
+    {
+        $wins = Helper::getPercentage($local, $visitor, 'win');
+        $ties = Helper::getPercentage($local, $visitor, 'tie');
+        $loses = Helper::getPercentage($local, $visitor, 'lose');
+
+        if ($wins > $ties && $wins > $loses) {
+            $bet = '1';
+        } elseif ($wins > $loses && $wins == $ties) {
+            $bet = 'X';
+        } elseif ($ties > $wins && $ties > $loses) {
+            $bet = 'X';
+        } elseif ($ties == $loses) {
+            $bet = 'X';
+        } elseif ($loses > $wins && $loses > $ties) {
+            $bet = '2';
+        } else {
+            $bet = 'X';
+        }
+
+        return $bet;
+    }
+
     public static function getPercentage($local, $visitor, $type = 'win', $historics = null)
     {
         $historics = Historic::where('local', $local)->where('visitor', $visitor)->get();

@@ -36,7 +36,7 @@ class HistoricController extends Controller
                 } else {
                     $moreThanSix = false;
                 }
-                $prevision = Helper::getPrevision($partido->local, $partido->visitor, 0, $moreThanSix);
+                $prevision = Helper::getBet($partido->local, $partido->visitor);
 
                 $isHit = $prevision == $partido->result;
                 if ($isHit) {
