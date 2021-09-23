@@ -5,8 +5,9 @@ namespace App\Helpers;
 use App\Team;
 use App\Result;
 
-class Helper{
-    public static function getPrevision($local, $visitor, $secondBet, $moreThanSix)
+class Helper
+{
+    public static function getPrevision($local, $visitor, $secondBet = 0, $moreThanSix = 0)
     {
         $result = Result::where('local', $local)->where('visitor', $visitor)->first();
 
@@ -40,7 +41,7 @@ class Helper{
                         if ($key == 'percentageTies') {
                             $prevision = 'X';
                         }
-                    } else if ($counter == ($moreThanSix ? 1 : 2) && $secondBet) {
+                    } elseif ($counter == ($moreThanSix ? 1 : 2) && $secondBet) {
                         if ($key == 'percentageVictories') {
                             $prevision = '1';
                         }
