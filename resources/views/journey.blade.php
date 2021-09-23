@@ -267,9 +267,9 @@
                                 </div>
                             </div>
                             <div class="row-cell3 bg-lightpink item1">
-                                <span class="value">75</span>
-                                <span class="value">17</span>
-                                <span class="value">8</span>
+                                <span class="value">{{ Helper::getPercentage($match->local, $match->visitor, 'win') }}</span>
+                                <span class="value">{{ Helper::getPercentage($match->local, $match->visitor, 'tie') }}</span>
+                                <span class="value">{{ Helper::getPercentage($match->local, $match->visitor, 'lose') }}</span>
                             </div>
                             <div class="row-cell5 red">{{ $match->result }}</div>
                         </article>

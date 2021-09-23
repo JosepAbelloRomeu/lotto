@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Team;
 use App\Result;
+use App\Historic;
 
 class Helper
 {
@@ -100,5 +101,28 @@ class Helper
         }
 
         return $prevision;
+    }
+
+    public static function getPercentage($local, $visitor, $type = 'win')
+    {
+        $wins = Historic::where('local', $local)->where('visitor', $visitor)->where('result', '=', '1')->get();
+        $ties = Historic::where('local', $local)->where('visitor', $visitor)->where('result', '=', 'X')->get();
+        $loses = Historic::where('local', $local)->where('visitor', $visitor)->where('result', '=', '2')->get();
+
+        $total = Historic::where('local', $local)->where('visitor', $visitor)->get()->count();
+
+        switch ($type) {
+            case 'win':
+                $percentage = floor(($wins->count() / $total) * 100);
+                break;
+            case 'tie':
+                $percentage = floor(($ties->count() / $total) * 100);
+                break;
+            case 'lose':
+                $percentage = floor(($loses->count() / $total) * 100);
+                break;
+        }
+
+        return $percentage;
     }
 }
