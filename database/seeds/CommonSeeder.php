@@ -41,7 +41,7 @@ class CommonSeeder extends Seeder
 
                     // Comprobar Results
                     $registerExist = array_search(["local" => $partido->local, "visitor" => $partido->visitante], $existentResults);
-            
+
                     if (!$registerExist) {
                         $existentResults[] = ['local' => $partido->local, 'visitor' => $partido->visitante];
                         $result = $this->results($partido);
@@ -54,20 +54,22 @@ class CommonSeeder extends Seeder
                     $teamName = '';
 
                     $registerExistLocal = array_search(["team" => $partido->local], $existentTeams);
-                    if (!$registerExistLocal) {
-                        $teamName = $partido->local;
-                        $existentTeams[] = ['team' => $teamName];
-                    }
                     $registerExistVisitor = array_search(["team" => $partido->visitante], $existentTeams);
-                    if (!$registerExistVisitor) {
-                        $teamName = $partido->visitante;
-                        $existentTeams[] = ['team' => $teamName];
+
+                    if (!$registerExistLocal || !$registerExistVisitor) {
+                        if (!$registerExistLocal) {
+                            $teamName = $partido->local;
+                        }
+                        if (!$registerExistVisitor) {
+                            $teamName = $partido->visitante;
+                        }
+
                     }
-                    
-            
+
                     if (!$registerExistLocal || !$registerExistVisitor) {
                         $team = $this->teams($teamName);
                         $insertsTeams[] = $team;
+                        $existentTeams[] = ['team' => $teamName];
                     }
 
                     // END Comprobar Teams
