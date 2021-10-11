@@ -84,6 +84,11 @@ class Helper
             } else {
                 $teamOne = Team::where('team', $local)->first();
                 $teamTwo = Team::where('team', $visitor)->first();
+                try {
+                    $variable = $teamOne->wins > $teamTwo->wins;
+                } catch (\Exception $e) {
+                    dd($teamOne, $teamTwo, $local, $visitor);
+                }
                 if ($teamOne->wins > $teamTwo->wins) {
                     $prevision = '1';
                 } elseif ($teamOne->wins < $teamTwo->wins) {

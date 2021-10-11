@@ -18,24 +18,32 @@ class ResultSeeder extends Seeder
         $jornadas = $this->getResults();
         foreach ($jornadas as $jornada) {
             foreach ($jornada as $partido) {
-                if (isset($partido->visitante) && isset($partido->resultado) && isset($partido->local)) {
-                    $result = Result::firstOrNew(['local' => $partido->local, 'visitor' => $partido->visitante]);
-                    $team = Team::firstOrNew(['team' => $partido->local]);
-                    $secondTeam = Team::firstOrNew(['team' => $partido->visitante]);
-                    $result->save();
-                    $team->save();
-                    $secondTeam->save();
+                if (isset($partido->visitante) && isset($partido->resultado) && isset($partido->local) && $partido->local != '(Desconocido)' && $partido->visitante != '(Desconocido)') {
+                    $result = Result::where(['local' => $partido->local, 'visitor' => $partido->visitante])->first();
+                    $team = Team::where(['team' => $partido->local])->first();
+                    $secondTeam = Team::where(['team' => $partido->visitante])->first();
+
                     switch ($partido->resultado) {
                         case "1":
-                            $result->increment('wins');
-                            $team->increment('wins');
+                            if ($result != null) {
+                                $result->increment('wins');
+                            }
+                            if ($team != null) {
+                                $team->increment('wins');
+                            }
                         break;
                         case "X":
-                            $result->increment('ties');
+                            if ($result != null) {
+                                $result->increment('ties');
+                            }
                         break;
                         case "2":
-                            $result->increment('loses');
-                            $secondTeam->increment('wins');
+                            if ($result != null) {
+                                $result->increment('loses');
+                            }
+                            if ($secondTeam != null) {
+                                $secondTeam->increment('wins');
+                            }
                         break;
                     }
                 }
@@ -43,7 +51,8 @@ class ResultSeeder extends Seeder
         }
     }
 
-    public function getResults() {
+    public function getResults()
+    {
         $client = new Client();
         $res = $client->request('GET', 'https://www.pronostigol.es/api/quiniela/tickets?per_page=' . self::PER_PAGE);
 

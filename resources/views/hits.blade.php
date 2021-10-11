@@ -19,7 +19,7 @@
                 @foreach ($workingDays as $workingDay)
                     @php $acumulable = 0; $acumulable2 = 0; @endphp
                     <tr class="whitespace-nowrap">
-                        <td class="px-6 py-2 text-sm text-gray-500">{{ $workingDay->league_date->format('d/m/Y') }}</td>
+                        <td class="px-6 py-2 text-sm text-gray-500">{{ $workingDay->league_date }}</td>
                         <td class="px-6 py-2 text-sm text-gray-500"><a class="underline" href="{{ route('journey', $workingDay->_id) }}">{{ $workingDay->_id }}</a></td>
                         @foreach ($workingDay->historics as $key => $partido)
                             @php $prevision = Helper::getBet($partido->local, $partido->visitor); $isHit = $prevision == $partido->result; if ($isHit) { $acumulable++; } @endphp

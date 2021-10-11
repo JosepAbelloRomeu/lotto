@@ -16,7 +16,7 @@ class CreateWorkingDaysTable extends Migration
         Schema::create('working_days', function (Blueprint $table) {
             $table->id();
             $table->string('_id');
-            $table->date('league_date');
+            $table->string('league_date');
             $table->string('season');
             $table->integer('working_day');
             $table->timestamps();

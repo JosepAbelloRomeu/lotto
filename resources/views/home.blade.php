@@ -11,7 +11,7 @@
                     <thead class="bg-gray-50">
                         <tr>
                             <th class="px-6 py-2 text-xs text-gray-500 text-left" colspan="4">
-                                <a href="{{ route('journey', $journey[0]->_id) }}" class="text-sm">Jornada {{ $journey[0]->working_day }}</a> · <span class="italic">{{ $journey[0]->league_date->format('d-m-Y') }}</span>
+                                <a href="{{ route('journey', $journey[0]->_id) }}" class="text-sm">Jornada {{ $journey[0]->working_day }}</a> · <span class="italic">{{ $journey[0]->league_date }}</span>
                             </th>
                         </tr>
                     </thead>
