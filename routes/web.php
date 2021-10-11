@@ -21,8 +21,9 @@ use App\Http\Controllers\HistoricController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-/* Route::get('/lotto', [LottoController::class, 'index']);
-Route::get('/random', [LottoController::class, 'random']); */
+Route::get('/superonce', [LottoController::class, 'superonce']);
+Route::get('/lotto', [LottoController::class, 'index']);
+Route::get('/random', [LottoController::class, 'random']);
 Route::get('/result', [ResultController::class, 'index'])->name('result');
 Route::get('/hits', [HistoricController::class, 'index'])->name('hits');
 Route::post('/handle-result', [ResultController::class, 'handleResult'])->name('handle-result');
