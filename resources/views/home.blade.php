@@ -21,15 +21,21 @@
                                 <td class="px-6 py-2 text-sm text-gray-500" >
                                     {{ $loop->iteration }}. {{ $match->local }} - {{ $match->visitor }}
                                 </td>
-                                <td class="px-4 py-2 w-1/6 {{ $match->result == '1' ? 'text-blue-900 font-bold' : 'text-red-300' }} text-right">
-                                    1
-                                </td>
-                                <td class="px-4 py-2 w-1/6 {{ $match->result == 'X' ? 'text-blue-900 font-bold' : 'text-red-300' }} text-right">
-                                    X
-                                </td>
-                                <td class="px-4 py-2 w-1/6 {{ $match->result == '2' ? 'text-blue-900 font-bold' : 'text-red-300' }} text-right">
-                                    2
-                                </td>
+                                @if($match->resultWithGoals)
+                                    <td></td>
+                                    <td></td>
+                                    <td class="px-4 py-2 w-1/6 text-blue-900 font-bold text-right">{{ $match->resultWithGoals }}</td>
+                                @else
+                                    <td class="px-4 py-2 w-1/6 {{ $match->result == '1' ? 'text-blue-900 font-bold' : 'text-red-300' }} text-right">
+                                        1
+                                    </td>
+                                    <td class="px-4 py-2 w-1/6 {{ $match->result == 'X' ? 'text-blue-900 font-bold' : 'text-red-300' }} text-right">
+                                        X
+                                    </td>
+                                    <td class="px-4 py-2 w-1/6 {{ $match->result == '2' ? 'text-blue-900 font-bold' : 'text-red-300' }} text-right">
+                                        2
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>

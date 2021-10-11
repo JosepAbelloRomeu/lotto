@@ -20,6 +20,7 @@ class CreateHistoricsTable extends Migration
             $table->string('local');
             $table->string('visitor');
             $table->string('result');
+            $table->string('resultWithGoals')->nullable();
             $table->timestamps();
         });
     }
