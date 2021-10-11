@@ -2,37 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\ResultService;
-use App\Result;
 use App\Team;
+use App\Result;
 use Illuminate\Http\Request;
+use App\Http\Services\ResultService;
+use App\Helpers\Helper;
 
 class ResultController extends Controller
 {
     protected $resultService;
 
-    public function __construct(ResultService $resultService) {
+    public function __construct(ResultService $resultService)
+    {
         $this->resultService = $resultService;
     }
 
-    public function index() {
-
+    public function index()
+    {
         return view('results');
     }
 
-    public function getTeams(Request $request) {
-        return Team::where('team', 'like', '%' . $request->input('term') . '%')->cursor()->map(function($team) {
+    public function getTeams(Request $request)
+    {
+        return Team::where('team', 'like', '%' . $request->input('term') . '%')->cursor()->map(function ($team) {
             return ['id' => $team->team, 'text' => $team->team];
         });
     }
 
-    public function handleResult(Request $request) {
+    public function handleResult(Request $request)
+    {
         $input = $request->input();
         $prevision = [];
         $prevision2 = [];
+        $prevision3 = [];
 
         for ($i = 1; $i <= 15; $i++) {
-
             if (isset($input['equipo-' . $i . '-1']) && isset($input['equipo-' . $i . '-2'])) {
                 $local = $input['equipo-' . $i . '-1'];
                 $visitor = $input['equipo-' . $i . '-2'];
@@ -43,17 +47,19 @@ class ResultController extends Controller
                     $moreThanSix = false;
                 }
 
-                $prevision = $this->calculatePrevision($local, $visitor, 0, $moreThanSix);
-                $prevision2 = $this->calculatePrevision($local, $visitor, 1, $moreThanSix);
-
-
+                $prevision[$i]['local'] = $local;
+                $prevision[$i]['visitor'] = $visitor;
+                $prevision[$i]['result1'] = $this->calculatePrevision($local, $visitor, 0, $moreThanSix)[0];
+                $prevision[$i]['result2'] = $this->calculatePrevision($local, $visitor, 1, $moreThanSix)[0];
+                $prevision[$i]['result3'] = Helper::getBet($local, $visitor);
             }
         }
 
-        return view('prevision', ['prevision' => $prevision, 'prevision2' => $prevision2]);
+        return view('prevision', ['prevision' => $prevision, 'prevision2' => $prevision2, 'prevision3' => $prevision3]);
     }
 
-    public function calculatePrevision($local, $visitor, $secondBet, $moreThanSix) {
+    public function calculatePrevision($local, $visitor, $secondBet, $moreThanSix)
+    {
         $result = Result::where('local', $local)->where('visitor', $visitor)->first();
 
         $prevision = null;
@@ -86,7 +92,7 @@ class ResultController extends Controller
                         if ($key == 'percentageTies') {
                             $prevision[] = 'X';
                         }
-                    } else if ($counter == ($moreThanSix ? 1 : 2) && $secondBet) {
+                    } elseif ($counter == ($moreThanSix ? 1 : 2) && $secondBet) {
                         if ($key == 'percentageVictories') {
                             $prevision[] = '1';
                         }
@@ -101,7 +107,6 @@ class ResultController extends Controller
 
                     $counter++;
                 }
-
             } else {
                 $teamOne = Team::where('team', $local)->first();
                 $teamTwo = Team::where('team', $visitor)->first();

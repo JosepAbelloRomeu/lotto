@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')
-    <section class="header relative pt-16 flex h-screen" style="max-height:860px">
+    <section class="container mx-auto header relative pt-16 flex h-screen mt-5" style="max-height:860px">
         <table>
             <thead class="bg-gray-50">
                 <tr>
