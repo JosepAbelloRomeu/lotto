@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class WorkingDay extends Model
 {
-    protected $fillable = ['_id', 'league_date', 'season', 'working_day'];
+    protected $fillable = ['_id', 'league_date', 'season', 'modality', 'working_day'];
 
     public function historics()
     {

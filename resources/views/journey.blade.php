@@ -51,7 +51,7 @@
                                 <span class="value">{{ Helper::getPercentage($match->local, $match->visitor, 'tie') }}</span>
                                 <span class="value">{{ Helper::getPercentage($match->local, $match->visitor, 'lose') }}</span>
                             </div>
-                            <div class="row-cell5 red">{{ $match->result }}</div>
+                            <div class="row-cell5 red">{{ $match->resultWithGoals ? $match->resultWithGoals : $match->result }}</div>
                         </article>
                     </div>
                 @endforeach

@@ -9,6 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap" rel="stylesheet">
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <title>Lotto</title>
 
@@ -231,7 +235,7 @@
 
     @include('partials.header')
 
-    < id="__next">
+    <div id="__next">
 
         <nav class="fixed z-50 w-full bg-white top-0 flex flex-wrap items-center justify-between px-2 py-3 shadow-lg">
             <div class="container px-4 mx-auto flex flex-wrap items-center justify-between">
@@ -267,6 +271,8 @@
     </div>
 
     @include('partials.footer')
+
+    @yield('scripts')
 
 </body>
 

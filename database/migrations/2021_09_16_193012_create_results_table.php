@@ -20,6 +20,8 @@ class CreateResultsTable extends Migration
             $table->integer('wins')->default(0);
             $table->integer('ties')->default(0);
             $table->integer('loses')->default(0);
+            $table->integer('localGoals')->default(0);
+            $table->integer('visitorGoals')->default(0);
             $table->timestamps();
         });
     }

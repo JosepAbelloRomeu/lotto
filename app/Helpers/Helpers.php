@@ -108,11 +108,11 @@ class Helper
         return $prevision;
     }
 
-    public static function getBet($local, $visitor)
+    public static function getBet($local, $visitor, $field = true)
     {
-        $wins = Helper::getPercentage($local, $visitor, 'win');
-        $ties = Helper::getPercentage($local, $visitor, 'tie');
-        $loses = Helper::getPercentage($local, $visitor, 'lose');
+        $wins = Helper::getPercentage($local, $visitor, 'win', $field);
+        $ties = Helper::getPercentage($local, $visitor, 'tie', $field);
+        $loses = Helper::getPercentage($local, $visitor, 'lose', $field);
 
         if ($wins > $ties && $wins > $loses) {
             $bet = '1';
@@ -131,9 +131,18 @@ class Helper
         return $bet;
     }
 
-    public static function getPercentage($local, $visitor, $type = 'win', $historics = null)
+    public static function getPercentage($local, $visitor, $type = 'win', $field = true)
     {
-        $historics = Historic::where('local', $local)->where('visitor', $visitor)->get();
+        if ($field) {
+            $historics = Historic::where('local', $local)->where('visitor', $visitor)->get();
+        } else {
+            $historics = Historic::where('local', $local)->where('visitor', $visitor)
+                                    ->orWhere(function ($query) use ($local, $visitor) {
+                                        $query->where('local', $visitor)->where('visitor', $local);
+                                    })
+            ->get();
+        }
+        
         $wins = $historics->where('result', '=', '1');
         $ties = $historics->where('result', '=', 'X');
         $loses = $historics->where('result', '=', '2');

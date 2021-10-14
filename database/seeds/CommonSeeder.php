@@ -63,7 +63,6 @@ class CommonSeeder extends Seeder
                         if (!$registerExistVisitor) {
                             $teamName = $partido->visitante;
                         }
-
                     }
 
                     if (!$registerExistLocal || !$registerExistVisitor) {
@@ -114,6 +113,8 @@ class CommonSeeder extends Seeder
         $result->id = hexdec(uniqid());
         $result->local = $partido->local;
         $result->visitor = $partido->visitante;
+        $result->localGoals = isset($partido->golesLocal) ? $partido->golesLocal : 0;
+        $result->visitorGoals = isset($partido->golesVisitante) ? $partido->golesVisitante : 0;
 
         return $result->attributesToArray();
     }
@@ -125,6 +126,7 @@ class CommonSeeder extends Seeder
         $workingDay->_id = $jornada->_id;
         $workingDay->league_date = explode('T', $jornada->fecha)[0];
         $workingDay->season = $jornada->temporada;
+        $workingDay->modality = $jornada->modalidad;
         $workingDay->working_day = $jornada->jornada;
 
         return $workingDay->attributesToArray();

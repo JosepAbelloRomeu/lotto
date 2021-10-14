@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Result extends Model
 {
-    protected $fillable = ['local', 'visitor', 'wins', 'ties', 'loses'];
+    protected $fillable = ['local', 'visitor', 'wins', 'ties', 'loses', 'localGoals', 'visitorGoals'];
 }

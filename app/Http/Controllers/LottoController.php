@@ -8,26 +8,28 @@ class LottoController extends Controller
 {
     protected $lottoService;
 
-    public function __construct(LottoService $lottoService) {
+    public function __construct(LottoService $lottoService)
+    {
         $this->lottoService = $lottoService;
     }
 
-    public function index() {
-
+    public function index()
+    {
         $results = $this->lottoService->getResults();
         $coloredNumbers = $this->lottoService->getColoredNumbersWithAllNumbers($results);
 
         return view('lotto', ['results' => $coloredNumbers['results'], 'numbers' => $this->lottoService::NUMBERS, 'counted' => $coloredNumbers['counted']]);
     }
 
-    public function random() {
-
+    public function random()
+    {
         $results = $this->lottoService->getResults();
         $coloredNumbers = $this->lottoService->getColoredNumbersWithRandomizedNumbers($results);
         return view('lotto', ['results' => $coloredNumbers['results'], 'numbers' => $this->lottoService::NUMBERS, 'counted' => $coloredNumbers['counted']]);
     }
 
-    public function superonce() {
+    public function superonce()
+    {
         $selectedNumbers = 5;
         $numberOfGeneratedCombinations = range(1, 100);
         $eightyNumbers = range(1, 80);
@@ -38,8 +40,6 @@ class LottoController extends Controller
         $collection = collect();
 
         foreach ($numberOfGeneratedCombinations as $numberOfGeneratedCombination) {
-
-
             shuffle($eightyNumbers);
             $hits = 0;
             $resultNumbers = array_slice($eightyNumbers, 0, 20);

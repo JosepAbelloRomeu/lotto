@@ -17,6 +17,7 @@ class CreateWorkingDaysTable extends Migration
             $table->id();
             $table->string('_id');
             $table->string('league_date');
+            $table->string('modality');
             $table->string('season');
             $table->integer('working_day');
             $table->timestamps();
