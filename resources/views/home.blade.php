@@ -51,6 +51,31 @@
                     </p>
                 </div>
             </article>
+            <article class="bg-white">
+                <div class="aspect-w-16 aspect-h-10 lg:aspect-w-4 lg:aspect-h-3">
+                    <img class="object-cover" src="{{ asset('img/primitiva.png') }}" alt="multiple bills with different values and currencies">
+                </div>
+                <div class="px-7 pt-5 pb-10 lg:p-6">
+                    <span class="text-neutral-grayish-blue text-xs">{{ date('d-m-Y', strtotime($primitiva[0]->raffle_date)) }}</span>
+                    <h4 class="text-primary-dark-blue text-sm py-2">
+                        <a href="#" class="font-bold hover:text-green-400">Primitiva</a>
+                    </h4>
+                    <p class="text-neutral-grayish-blue text-xs py-2">
+                        <span class="font-bold mr-2">{{ $primitiva[0]->ball_0 }}</span>
+                        <span class="font-bold mr-2">{{ $primitiva[0]->ball_1 }}</span>
+                        <span class="font-bold mr-2">{{ $primitiva[0]->ball_2 }}</span>
+                        <span class="font-bold mr-2">{{ $primitiva[0]->ball_3 }}</span>
+                        <span class="font-bold mr-2">{{ $primitiva[0]->ball_4 }}</span>
+                        <span class="font-bold mr-2">{{ $primitiva[0]->ball_5 }}</span>
+
+                        <span class="font-bold p-1 border rounded-full bg-gray-100	">R</span>
+                        <span class="font-bold mr-2">{{ $primitiva[0]->reinteger }}</span>
+
+                        <span class="font-bold p-1 border rounded-full bg-gray-100	">C</span>
+                        <span class="font-bold mr-2">{{ $primitiva[0]->complementary }}</span>
+                    </p>
+                </div>
+            </article>
         </div>
     </div>
 </section>
