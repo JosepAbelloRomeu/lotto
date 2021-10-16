@@ -33,7 +33,7 @@
                 <div class="px-7 pt-5 pb-10 lg:p-6">
                     <span class="text-neutral-grayish-blue text-xs">{{ date('d-m-Y', strtotime($bonoloto[0]->raffle_date)) }}</span>
                     <h4 class="text-primary-dark-blue text-sm py-2">
-                        <a href="#" class="font-bold hover:text-green-400">Bonoloto</a>
+                        <a href="#" class="font-bold hover:text-green-400">Bonoloto · Sorteo {{ $bonoloto[0]->raffle }}</a>
                     </h4>
                     <p class="text-neutral-grayish-blue text-xs py-2">
                         <span class="font-bold mr-2">{{ $bonoloto[0]->ball_0 }}</span>
@@ -58,7 +58,7 @@
                 <div class="px-7 pt-5 pb-10 lg:p-6">
                     <span class="text-neutral-grayish-blue text-xs">{{ date('d-m-Y', strtotime($primitiva[0]->raffle_date)) }}</span>
                     <h4 class="text-primary-dark-blue text-sm py-2">
-                        <a href="#" class="font-bold hover:text-green-400">Primitiva</a>
+                        <a href="#" class="font-bold hover:text-green-400">Primitiva · Sorteo {{ $primitiva[0]->raffle }}</a>
                     </h4>
                     <p class="text-neutral-grayish-blue text-xs py-2">
                         <span class="font-bold mr-2">{{ $primitiva[0]->ball_0 }}</span>
