@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="main mt-16">
+    <div class="main py-14 lg:py-32">
         <div class="wrapper">
             <section class="ticket container mx-auto header relative mt-8">
 

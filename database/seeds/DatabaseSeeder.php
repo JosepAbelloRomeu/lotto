@@ -13,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CommonSeeder::class);
         $this->call(ResultSeeder::class);
+        $this->call(BonolotoSeeder::class);
     }
 }

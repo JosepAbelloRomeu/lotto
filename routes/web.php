@@ -7,6 +7,7 @@ use App\Http\Controllers\ResultController;
 use App\Http\Controllers\JourneyController;
 use App\Http\Controllers\GenerateController;
 use App\Http\Controllers\HistoricController;
+use App\Http\Controllers\QuinielaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,13 +22,17 @@ use App\Http\Controllers\HistoricController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::prefix('quiniela')->group(function () {
+    Route::get('/', [QuinielaController::class, 'index'])->name('quiniela');
+    Route::get('/hits', [HistoricController::class, 'index'])->name('hits');
+    Route::get('/journey/{id}', [JourneyController::class, 'index'])->name('journey');
+    Route::get('/result', [ResultController::class, 'index'])->name('result');
+    Route::post('/handle-result', [ResultController::class, 'handleResult'])->name('handle-result');
+});
+
 Route::get('/superonce', [LottoController::class, 'superonce']);
 Route::get('/lotto', [LottoController::class, 'index']);
 Route::get('/random', [LottoController::class, 'random']);
-Route::get('/result', [ResultController::class, 'index'])->name('result');
-Route::get('/hits', [HistoricController::class, 'index'])->name('hits');
-Route::post('/handle-result', [ResultController::class, 'handleResult'])->name('handle-result');
 Route::get('/get-teams', [ResultController::class, 'getTeams'])->name('teams-ajax');
-Route::get('/journey/{id}', [JourneyController::class, 'index'])->name('journey');
 
 Route::get('/generate', [GenerateController::class, 'index'])->name('generate');
