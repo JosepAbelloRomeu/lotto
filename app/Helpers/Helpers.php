@@ -87,18 +87,20 @@ class Helper
                 try {
                     $variable = $teamOne->wins > $teamTwo->wins;
                 } catch (\Exception $e) {
-                    dd($teamOne, $teamTwo, $local, $visitor);
+                    dump($teamOne, $teamTwo, $local, $visitor);
                 }
-                if ($teamOne->wins > $teamTwo->wins) {
-                    $prevision = '1';
-                } elseif ($teamOne->wins < $teamTwo->wins) {
-                    if ($secondBet && !$moreThanSix) {
-                        $prevision = 'X';
+                if ($teamOne && $teamTwo) {
+                    if ($teamOne->wins > $teamTwo->wins) {
+                        $prevision = '1';
+                    } elseif ($teamOne->wins < $teamTwo->wins) {
+                        if ($secondBet && !$moreThanSix) {
+                            $prevision = 'X';
+                        } else {
+                            $prevision = '2';
+                        }
                     } else {
-                        $prevision = '2';
+                        $prevision = 'X';
                     }
-                } else {
-                    $prevision = 'X';
                 }
             }
         } else {
@@ -108,7 +110,7 @@ class Helper
         return $prevision;
     }
 
-    public static function getBet($local, $visitor, $field = true)
+    public static function getBet($local, $visitor, $field = true, $key)
     {
         $wins = Helper::getPercentage($local, $visitor, 'win', $field);
         $ties = Helper::getPercentage($local, $visitor, 'tie', $field);
@@ -128,7 +130,29 @@ class Helper
             $bet = 'X';
         }
 
+        //TODO Generar un pleno al 15 dependiendo de goles o qué sé yo
+        if ($key == 14) {
+            switch ($bet) {
+                case '1':
+                    $bet = '2-1';
+                    break;
+                case 'X':
+                    $bet = '1-1';
+                    break;
+                case '2':
+                    $bet = '1-2';
+                    break;
+            }
+        }
+
         return $bet;
+    }
+
+    public static function fixedBet($index)
+    {
+        $fixedBet = ['1', '2', '2', '1', 'X', '2', 'X', '1', '2', '2', '1', '2', '1', 'X', '2-1'];
+
+        return $fixedBet[$index];
     }
 
     public static function getPercentage($local, $visitor, $type = 'win', $field = true)

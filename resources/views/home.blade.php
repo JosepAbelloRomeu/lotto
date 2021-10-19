@@ -21,7 +21,7 @@
                     </h4>
                     <p class="text-neutral-grayish-blue text-xs py-2">
                         @foreach ($matches as $match)
-                            <span class="border font-medium p-1">{{ $match->result }}</span>
+                            <span class="border font-medium p-1">{{ $match->resultWithGoals ? $match->resultWithGoals : $match->result }}</span>
                         @endforeach    
                     </p>
                 </div>

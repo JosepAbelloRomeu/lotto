@@ -51,7 +51,7 @@ class ResultController extends Controller
                 $prevision[$i]['visitor'] = $visitor;
                 $prevision[$i]['result1'] = $this->calculatePrevision($local, $visitor, 0, $moreThanSix)[0];
                 $prevision[$i]['result2'] = $this->calculatePrevision($local, $visitor, 1, $moreThanSix)[0];
-                $prevision[$i]['result3'] = Helper::getBet($local, $visitor, true);
+                $prevision[$i]['result3'] = Helper::getBet($local, $visitor, true, $i);
             }
         }
 
