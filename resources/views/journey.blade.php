@@ -18,7 +18,7 @@
                     @php
                         $prevision = Helper::getBet($match->local, $match->visitor, true, $key);
                         $isHit = $prevision == $match->result;
-                        if ($isHit) {
+                        if ($isHit || $match->resultWithGoals == $prevision) {
                             $acumulable++;
                         }
                     @endphp
