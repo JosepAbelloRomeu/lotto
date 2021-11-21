@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\LottoService;
+use App\Superonce;
 
 class LottoController extends Controller
 {
+    const TOTAL_NUMBERS = 20;
+
     protected $lottoService;
 
     public function __construct(LottoService $lottoService)
@@ -57,5 +60,69 @@ class LottoController extends Controller
 
 
         return view('superonce', ['combination' => $combination, 'counted' => $counted]);
+    }
+
+    public function superonceStatistics()
+    {
+        $superonces = Superonce::cursor();
+        $rangeNumbers = range(0, self::TOTAL_NUMBERS - 1);
+        $moreThanThreeRow = 0;
+        $moreThanTenDiferenceRow = 0;
+
+        foreach ($superonces as $superonce) {
+            $arraySuperOnces = [];
+            foreach ($rangeNumbers as $rangeNumber) {
+                $arraySuperOnces[] = $superonce->{"number_" . $rangeNumber};
+            }
+
+            $threeConsecutives = $this->checkMoreThanThreeConsecutive($arraySuperOnces);
+            if ($threeConsecutives > 0) {
+                $moreThanThreeRow ++;//+= $threeConsecutives;
+            }
+
+            $moreThan10difference = $this->checkMoreThanTenConsecutive($arraySuperOnces);
+            if ($moreThan10difference > 0) {
+                $moreThanTenDiferenceRow ++;//+= $moreThan10difference;
+            }
+        }
+
+        return view('superonce-statistics', ['moreThanThreeRow' => $moreThanThreeRow, 'superonces' => $superonces, 'moreThanTenDiferenceRow' => $moreThanTenDiferenceRow]);
+    }
+
+    function checkMoreThanThreeConsecutive($array)
+    {
+        $ret  = array();
+        $temp = array();
+        $consecutiveNumbers = 0;
+        foreach ($array as $val) {
+            if (next($array) == ($val + 1)) {
+                $temp[] = $val;
+            } else {
+                if (count($temp) > 0) {
+                    $temp[] = $val;
+                    $ret[] = $temp[0] . ':' . end($temp);
+                    if (intval(end($temp)) - intval($temp[0]) > 3) {
+                        $consecutiveNumbers++;
+                    }
+                    $temp = array();
+                } else {
+                    $ret[] = $val;
+                }
+            }
+        }
+
+        return $consecutiveNumbers;
+    }
+
+    function checkMoreThanTenConsecutive($array)
+    {
+        $moreTenDifference = 0;
+        foreach ($array as $val) {
+            if (next($array) > ($val + 19)) {
+                $moreTenDifference++;
+            }
+        }
+
+        return $moreTenDifference;
     }
 }

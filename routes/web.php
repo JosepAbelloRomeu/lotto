@@ -30,7 +30,10 @@ Route::prefix('quiniela')->group(function () {
     Route::post('/handle-result', [ResultController::class, 'handleResult'])->name('handle-result');
 });
 
-Route::get('/superonce', [LottoController::class, 'superonce']);
+Route::prefix('superonce')->group(function () {
+    Route::get('/', [LottoController::class, 'superonce']);
+    Route::get('/statistics', [LottoController::class, 'superonceStatistics']);
+});
 Route::get('/lotto', [LottoController::class, 'index']);
 Route::get('/random', [LottoController::class, 'random']);
 Route::get('/get-teams', [ResultController::class, 'getTeams'])->name('teams-ajax');
