@@ -11,9 +11,9 @@
     },
     "devDependencies": {
         "autoprefixer": "^10.3.6",
-        "axios": "^0.19",
+        "axios": "^0.24.0",
         "cross-env": "^7.0",
-        "laravel-mix": "^5.0.1",
+        "laravel-mix": "^6.0.39",
         "lodash": "^4.17.13",
         "postcss": "^8.3.8",
         "resolve-url-loader": "^3.1.0",
